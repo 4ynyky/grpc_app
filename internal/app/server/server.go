@@ -3,8 +3,8 @@ package server
 import (
 	"os"
 
+	"github.com/4ynyky/grpc_app/internal/services"
 	"github.com/4ynyky/grpc_app/pkg/domains"
-	"github.com/4ynyky/grpc_app/pkg/storage"
 	"github.com/4ynyky/grpc_app/pkg/storage/memcached"
 	"github.com/sirupsen/logrus"
 )
@@ -20,12 +20,11 @@ func Run() {
 	if err != nil {
 		logrus.Fatalf("Failed connect to memcached: %w", err)
 	}
-	stor.Set(domains.Item{ID: "ABC", Value: "3"})
-	item, err := stor.Get("ABCq")
-	if err == storage.ErrNotFound {
-		logrus.Warn(err)
-	} else if err != nil {
-		logrus.Error(err)
+
+	ss := services.NewStorageService(stor)
+	ss.Set(domains.Item{ID: "ABC", Value: "3"})
+	item, err := ss.Get("ABC")
+	if err == nil {
+		logrus.Debug(item)
 	}
-	logrus.Debug(item)
 }
