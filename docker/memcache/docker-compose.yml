@@ -1,0 +1,7 @@
+version: '2'
+
+services:
+  memcached:
+    container_name: 'memcached'
+    image: 'bitnami/memcached:latest'
+    network_mode: "host"
