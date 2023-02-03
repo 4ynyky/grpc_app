@@ -4,3 +4,6 @@ build:
 
 gen:
 	protoc --go_out=. --go-grpc_out=. ./pkg/transport/grpctr/proto/storage.proto
+
+tidy:
+	go mod tidy
