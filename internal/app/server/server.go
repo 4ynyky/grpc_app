@@ -5,14 +5,17 @@ import (
 	"os"
 
 	"github.com/4ynyky/grpc_app/internal/services"
+	"github.com/4ynyky/grpc_app/pkg/storage"
+	"github.com/4ynyky/grpc_app/pkg/storage/inmemory"
 	"github.com/4ynyky/grpc_app/pkg/storage/memcached"
 	"github.com/4ynyky/grpc_app/pkg/transport/grpctr"
 	"github.com/sirupsen/logrus"
 )
 
 var (
-	grpcPort     = flag.String("gp", "50051", "gRPC port")
-	memcachedURL = flag.String("mu", "0.0.0.0:11211", "Memcached connection URL")
+	grpcPort          = flag.String("gp", "50051", "gRPC port")
+	memcachedURL      = flag.String("mu", "0.0.0.0:11211", "Memcached connection URL")
+	isInternalStorage = flag.Bool("is", false, "Is use internal storage instead of memcached")
 )
 
 func init() {
@@ -24,9 +27,18 @@ func init() {
 func Run() {
 	flag.Parse()
 
-	storage, err := memcached.NewMemcachedStorage(memcached.Config{Host: *memcachedURL})
-	if err != nil {
-		logrus.Fatalf("Failed connect to memcached: %v", err)
+	var storage storage.IStorage
+	var err error
+
+	if *isInternalStorage {
+		logrus.Info("Init inmemory storage")
+		storage = inmemory.NewInMemoryStorage()
+	} else {
+		logrus.Info("Init memcached connection")
+		storage, err = memcached.NewMemcachedStorage(memcached.Config{Host: *memcachedURL})
+		if err != nil {
+			logrus.Fatalf("Failed connect to memcached: %v", err)
+		}
 	}
 
 	storageService := services.NewStorageService(storage)
