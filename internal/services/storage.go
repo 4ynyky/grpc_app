@@ -1,6 +1,8 @@
 package services
 
 import (
+	"errors"
+
 	"github.com/4ynyky/grpc_app/internal/domains"
 	"github.com/4ynyky/grpc_app/internal/storage"
 	"github.com/sirupsen/logrus"
@@ -30,11 +32,11 @@ func (ss *storageService) Set(item domains.Item) error {
 }
 func (ss *storageService) Get(id string) (domains.Item, error) {
 	item, err := ss.storage.Get(id)
-	if err == storage.ErrNotFound {
+	if errors.Is(err, storage.ErrNotFound) {
 		logrus.Warnf("Failed get item with id %v, error: %v", id, err)
 		return domains.Item{}, err
 	} else if err != nil {
-		logrus.Errorf("Failed get item with id %v, error: %w", id, err)
+		logrus.Errorf("Failed get item with id %v, error: %v", id, err)
 		return domains.Item{}, err
 	}
 	return item, nil

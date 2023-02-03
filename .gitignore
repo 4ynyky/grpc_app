@@ -15,4 +15,4 @@
 # vendor/
 
 .vscode
-storage_app
+bin/

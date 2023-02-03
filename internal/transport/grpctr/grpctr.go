@@ -47,8 +47,8 @@ func (ss *storageServer) Start() error {
 	pbv1.RegisterStorageServer(s, ss)
 	logrus.Infof("gRPC started at port: %v", ss.port)
 
-	if err := s.Serve(listener); err != nil {
-		return fmt.Errorf("failed to serve: %v", err)
+	if err = s.Serve(listener); err != nil {
+		return fmt.Errorf("failed to serve: %w", err)
 	}
 	return nil
 }
