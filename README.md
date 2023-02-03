@@ -8,14 +8,23 @@
 ## Build
 
 ```sh
-make
+make       //run tests and build
 ```
+
 
 ## Run tests
 
 ```sh
 make test
 ```
+
+## Run app
+
+```sh
+make run   //build and run app and start memcache via docker-compose
+make stop  //shutdown docker-compose memcache
+```
+
 
 ## Author
 
