@@ -21,23 +21,25 @@ func Run() {
 	fl := &flags{}
 	fl.SetupFlags()
 
-	var storage services.Storer
-	var err error
+	storage := newStorage(fl)
+	storageService := services.NewStorageService(storage)
 
+	grpcConfig := grpctr.Config{Port: fl.GrpcPort(), StorageService: storageService}
+	if err := grpctr.NewGrpcTransport(grpcConfig).Start(); err != nil {
+		logrus.Fatalf("Failed start gRPC transport: %v", err)
+	}
+}
+
+func newStorage(fl *flags) services.Storer {
 	if fl.IsInternalStorage() {
 		logrus.Info("Init inmemory storage")
-		storage = inmemory.NewInMemoryStorage()
+		return inmemory.NewInMemoryStorage()
 	} else {
 		logrus.Info("Init memcached connection")
-		storage, err = memcached.NewMemcachedStorage(memcached.Config{Host: fl.MemcachedURL()})
+		storage, err := memcached.NewMemcachedStorage(memcached.Config{Host: fl.MemcachedURL()})
 		if err != nil {
 			logrus.Fatalf("Failed connect to memcached: %v", err)
 		}
-	}
-
-	storageService := services.NewStorageService(storage)
-	grpcConfig := grpctr.Config{Port: fl.GrpcPort(), StorageService: storageService}
-	if err = grpctr.NewGrpcTransport(grpcConfig).Start(); err != nil {
-		logrus.Fatalf("Failed start gRPC transport: %v", err)
+		return storage
 	}
 }
