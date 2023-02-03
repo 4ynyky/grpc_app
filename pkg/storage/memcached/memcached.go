@@ -1,6 +1,7 @@
 package memcached
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/4ynyky/grpc_app/pkg/domains"
@@ -35,7 +36,7 @@ func (ms *memcachedStorage) Set(item domains.Item) error {
 
 func (ms *memcachedStorage) Get(id string) (domains.Item, error) {
 	memItem, err := ms.client.Get(id)
-	if err == memcache.ErrCacheMiss {
+	if errors.Is(err, memcache.ErrCacheMiss) {
 		return domains.Item{}, storage.ErrNotFound
 	} else if err != nil {
 		return domains.Item{}, fmt.Errorf("failed get item with id: %v, error: %w", id, err)
