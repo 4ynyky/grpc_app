@@ -192,7 +192,7 @@ linters:
     #- execinquery # checks query string in Query function which reads your Go src files and warning it finds
     - exhaustive # checks exhaustiveness of enum switch statements
     - exportloopref # checks for pointers to enclosing loop variables
-    - forbidigo # forbids identifiers
+    #- forbidigo # forbids identifiers
     - funlen # tool for detection of long functions
     - gochecknoglobals # checks that no global variables exist
     - gochecknoinits # checks that no init functions are present in Go code
