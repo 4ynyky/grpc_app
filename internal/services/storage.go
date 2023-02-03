@@ -8,6 +8,12 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+type Storer interface {
+	Set(item domains.Item) error
+	Get(id string) (domains.Item, error)
+	Delete(id string) error
+}
+
 type IStorageService interface {
 	Set(item domains.Item) error
 	Get(id string) (domains.Item, error)
@@ -15,10 +21,10 @@ type IStorageService interface {
 }
 
 type storageService struct {
-	storage storage.IStorage
+	storage Storer
 }
 
-func NewStorageService(storage storage.IStorage) IStorageService {
+func NewStorageService(storage Storer) IStorageService {
 	return &storageService{storage: storage}
 }
 

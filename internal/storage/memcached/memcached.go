@@ -17,7 +17,7 @@ type memcachedStorage struct {
 	client *memcache.Client
 }
 
-func NewMemcachedStorage(conf Config) (storage.IStorage, error) {
+func NewMemcachedStorage(conf Config) (*memcachedStorage, error) {
 	ms := &memcachedStorage{}
 	ms.client = memcache.New(conf.Host)
 

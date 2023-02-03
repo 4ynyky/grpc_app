@@ -4,7 +4,6 @@ import (
 	"os"
 
 	"github.com/4ynyky/grpc_app/internal/services"
-	"github.com/4ynyky/grpc_app/internal/storage"
 	"github.com/4ynyky/grpc_app/internal/storage/inmemory"
 	"github.com/4ynyky/grpc_app/internal/storage/memcached"
 	"github.com/4ynyky/grpc_app/internal/transport/grpctr"
@@ -22,7 +21,7 @@ func Run() {
 	fl := &flags{}
 	fl.SetupFlags()
 
-	var storage storage.IStorage
+	var storage services.Storer
 	var err error
 
 	if fl.IsInternalStorage() {

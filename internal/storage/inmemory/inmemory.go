@@ -12,7 +12,7 @@ type inmemoryStorage struct {
 	mu   sync.RWMutex
 }
 
-func NewInMemoryStorage() storage.IStorage {
+func NewInMemoryStorage() *inmemoryStorage {
 	return &inmemoryStorage{data: make(map[string]string)}
 }
 
