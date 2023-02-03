@@ -1,8 +1,0 @@
-{
-    "[go]": {
-        "editor.formatOnSave": true
-    },
-    "go.alternateTools": {
-        "go": "/snap/go/current/bin/go"
-    }
-}
