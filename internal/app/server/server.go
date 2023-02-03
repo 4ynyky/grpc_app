@@ -1,12 +1,18 @@
 package server
 
 import (
+	"flag"
 	"os"
 
 	"github.com/4ynyky/grpc_app/internal/services"
-	"github.com/4ynyky/grpc_app/pkg/domains"
 	"github.com/4ynyky/grpc_app/pkg/storage/memcached"
+	"github.com/4ynyky/grpc_app/pkg/transport/grpctr"
 	"github.com/sirupsen/logrus"
+)
+
+var (
+	grpcPort     = flag.String("gp", "50051", "gRPC port")
+	memcachedURL = flag.String("mu", "0.0.0.0:11211", "Memcached connection URL")
 )
 
 func init() {
@@ -16,15 +22,17 @@ func init() {
 }
 
 func Run() {
-	stor, err := memcached.NewMemcachedStorage(memcached.Config{Host: "0.0.0.0:11211"})
+	flag.Parse()
+
+	storage, err := memcached.NewMemcachedStorage(memcached.Config{Host: *memcachedURL})
 	if err != nil {
-		logrus.Fatalf("Failed connect to memcached: %w", err)
+		logrus.Fatalf("Failed connect to memcached: %v", err)
 	}
 
-	ss := services.NewStorageService(stor)
-	ss.Set(domains.Item{ID: "ABC", Value: "3"})
-	item, err := ss.Get("ABC")
-	if err == nil {
-		logrus.Debug(item)
+	storageService := services.NewStorageService(storage)
+	err = grpctr.NewGrpcTransport(grpctr.Config{Port: *grpcPort, StorageService: storageService}).Start()
+	if err != nil {
+		logrus.Fatalf("Failed start gRPC transport: %v", err)
 	}
+
 }

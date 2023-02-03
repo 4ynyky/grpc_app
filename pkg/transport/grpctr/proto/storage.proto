@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "/pkg/transport/grpctr/grpcgen";
+
+package grpcgen;
+
+service Storage {
+  rpc Set (SetRequest) returns (SetReply) {}
+  rpc Get (GetRequest) returns (GetReply) {}
+  rpc Delete (DeleteRequest) returns (DeleteReply) {}
+}
+
+message SetRequest {
+    string id = 1;
+    string value = 2;
+}
+
+message SetReply {
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteReply {
+}
+
+message GetRequest {
+  string id = 1;
+}
+
+message GetReply {
+  string value = 1;
+}
