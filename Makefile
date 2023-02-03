@@ -3,7 +3,7 @@ build:
 	mv main storage_app
 
 gen:
-	protoc --go_out=. --go-grpc_out=. ./pkg/transport/grpctr/proto/storage.proto
+	protoc --go_out=. --go-grpc_out=. ./internal/transport/grpctr/proto.v1/storage.proto
 
 tidy:
 	go mod tidy

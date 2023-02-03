@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/4ynyky/grpc_app/internal/domains"
-	pb "github.com/4ynyky/grpc_app/internal/transport/grpctr/grpcgen"
+	pb "github.com/4ynyky/grpc_app/internal/transport/grpctr/grpcgen/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

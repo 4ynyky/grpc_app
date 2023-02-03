@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.6.1
-// source: internal/transport/grpctr/proto/storage.proto
+// source: internal/transport/grpctr/proto.v1/storage.proto
 
-package grpcgen
+package v1
 
 import (
 	context "context"
@@ -37,7 +37,7 @@ func NewStorageClient(cc grpc.ClientConnInterface) StorageClient {
 
 func (c *storageClient) Set(ctx context.Context, in *SetRequest, opts ...grpc.CallOption) (*SetReply, error) {
 	out := new(SetReply)
-	err := c.cc.Invoke(ctx, "/grpcgen.Storage/Set", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/grpcgen.v1.Storage/Set", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (c *storageClient) Set(ctx context.Context, in *SetRequest, opts ...grpc.Ca
 
 func (c *storageClient) Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetReply, error) {
 	out := new(GetReply)
-	err := c.cc.Invoke(ctx, "/grpcgen.Storage/Get", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/grpcgen.v1.Storage/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +55,7 @@ func (c *storageClient) Get(ctx context.Context, in *GetRequest, opts ...grpc.Ca
 
 func (c *storageClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteReply, error) {
 	out := new(DeleteReply)
-	err := c.cc.Invoke(ctx, "/grpcgen.Storage/Delete", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/grpcgen.v1.Storage/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -108,7 +108,7 @@ func _Storage_Set_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/grpcgen.Storage/Set",
+		FullMethod: "/grpcgen.v1.Storage/Set",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(StorageServer).Set(ctx, req.(*SetRequest))
@@ -126,7 +126,7 @@ func _Storage_Get_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/grpcgen.Storage/Get",
+		FullMethod: "/grpcgen.v1.Storage/Get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(StorageServer).Get(ctx, req.(*GetRequest))
@@ -144,7 +144,7 @@ func _Storage_Delete_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/grpcgen.Storage/Delete",
+		FullMethod: "/grpcgen.v1.Storage/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(StorageServer).Delete(ctx, req.(*DeleteRequest))
@@ -156,7 +156,7 @@ func _Storage_Delete_Handler(srv interface{}, ctx context.Context, dec func(inte
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Storage_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "grpcgen.Storage",
+	ServiceName: "grpcgen.v1.Storage",
 	HandlerType: (*StorageServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -173,5 +173,5 @@ var Storage_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "internal/transport/grpctr/proto/storage.proto",
+	Metadata: "internal/transport/grpctr/proto.v1/storage.proto",
 }

@@ -6,7 +6,7 @@ import (
 
 	"github.com/4ynyky/grpc_app/internal/services"
 	"github.com/4ynyky/grpc_app/internal/transport"
-	pb "github.com/4ynyky/grpc_app/internal/transport/grpctr/grpcgen"
+	pbv1 "github.com/4ynyky/grpc_app/internal/transport/grpctr/grpcgen/v1"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 )
@@ -19,7 +19,7 @@ type Config struct {
 type storageServer struct {
 	port        string
 	storService services.IStorageService
-	pb.UnimplementedStorageServer
+	pbv1.UnimplementedStorageServer
 }
 
 func (ss *storageServer) Check() error {
@@ -44,7 +44,7 @@ func (ss *storageServer) Start() error {
 		return fmt.Errorf("failed to listen: %w", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterStorageServer(s, ss)
+	pbv1.RegisterStorageServer(s, ss)
 	logrus.Infof("gRPC started at port: %v", ss.port)
 
 	if err := s.Serve(listener); err != nil {
