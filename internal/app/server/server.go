@@ -5,10 +5,10 @@ import (
 	"os"
 
 	"github.com/4ynyky/grpc_app/internal/services"
-	"github.com/4ynyky/grpc_app/pkg/storage"
-	"github.com/4ynyky/grpc_app/pkg/storage/inmemory"
-	"github.com/4ynyky/grpc_app/pkg/storage/memcached"
-	"github.com/4ynyky/grpc_app/pkg/transport/grpctr"
+	"github.com/4ynyky/grpc_app/internal/storage"
+	"github.com/4ynyky/grpc_app/internal/storage/inmemory"
+	"github.com/4ynyky/grpc_app/internal/storage/memcached"
+	"github.com/4ynyky/grpc_app/internal/transport/grpctr"
 	"github.com/sirupsen/logrus"
 )
 

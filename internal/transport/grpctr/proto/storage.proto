@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "/pkg/transport/grpctr/grpcgen";
+option go_package = "/internal/transport/grpctr/grpcgen";
 
 package grpcgen;
 

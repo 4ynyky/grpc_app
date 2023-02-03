@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.6.1
-// source: pkg/transport/grpctr/proto/storage.proto
+// source: internal/transport/grpctr/proto/storage.proto
 
 package grpcgen
 
@@ -173,5 +173,5 @@ var Storage_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "pkg/transport/grpctr/proto/storage.proto",
+	Metadata: "internal/transport/grpctr/proto/storage.proto",
 }

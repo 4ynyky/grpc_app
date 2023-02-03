@@ -3,8 +3,8 @@ package grpctr
 import (
 	"context"
 
-	"github.com/4ynyky/grpc_app/pkg/domains"
-	pb "github.com/4ynyky/grpc_app/pkg/transport/grpctr/grpcgen"
+	"github.com/4ynyky/grpc_app/internal/domains"
+	pb "github.com/4ynyky/grpc_app/internal/transport/grpctr/grpcgen"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

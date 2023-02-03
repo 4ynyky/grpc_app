@@ -5,8 +5,8 @@ import (
 	"net"
 
 	"github.com/4ynyky/grpc_app/internal/services"
-	"github.com/4ynyky/grpc_app/pkg/transport"
-	pb "github.com/4ynyky/grpc_app/pkg/transport/grpctr/grpcgen"
+	"github.com/4ynyky/grpc_app/internal/transport"
+	pb "github.com/4ynyky/grpc_app/internal/transport/grpctr/grpcgen"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 )

@@ -3,8 +3,8 @@ package inmemory
 import (
 	"sync"
 
-	"github.com/4ynyky/grpc_app/pkg/domains"
-	"github.com/4ynyky/grpc_app/pkg/storage"
+	"github.com/4ynyky/grpc_app/internal/domains"
+	"github.com/4ynyky/grpc_app/internal/storage"
 )
 
 type inmemoryStorage struct {
