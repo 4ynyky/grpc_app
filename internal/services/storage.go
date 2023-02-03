@@ -14,17 +14,11 @@ type Storer interface {
 	Delete(id string) error
 }
 
-type IStorageService interface {
-	Set(item domains.Item) error
-	Get(id string) (domains.Item, error)
-	Delete(id string) error
-}
-
 type storageService struct {
 	storage Storer
 }
 
-func NewStorageService(storage Storer) IStorageService {
+func NewStorageService(storage Storer) *storageService {
 	return &storageService{storage: storage}
 }
 

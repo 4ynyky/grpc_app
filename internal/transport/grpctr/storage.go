@@ -9,22 +9,22 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (ss *storageServer) Set(ctx context.Context, in *pb.SetRequest) (*pb.SetReply, error) {
-	err := ss.storService.Set(domains.Item{ID: in.GetId(), Value: in.GetValue()})
+func (gt *gRPCTransport) Set(ctx context.Context, in *pb.SetRequest) (*pb.SetReply, error) {
+	err := gt.storService.Set(domains.Item{ID: in.GetId(), Value: in.GetValue()})
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, err.Error())
 	}
 	return &pb.SetReply{}, nil
 }
-func (ss *storageServer) Get(ctx context.Context, in *pb.GetRequest) (*pb.GetReply, error) {
-	item, err := ss.storService.Get(in.GetId())
+func (gt *gRPCTransport) Get(ctx context.Context, in *pb.GetRequest) (*pb.GetReply, error) {
+	item, err := gt.storService.Get(in.GetId())
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, err.Error())
 	}
 	return &pb.GetReply{Value: item.Value}, nil
 }
-func (ss *storageServer) Delete(ctx context.Context, in *pb.DeleteRequest) (*pb.DeleteReply, error) {
-	err := ss.storService.Delete(in.GetId())
+func (gt *gRPCTransport) Delete(ctx context.Context, in *pb.DeleteRequest) (*pb.DeleteReply, error) {
+	err := gt.storService.Delete(in.GetId())
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, err.Error())
 	}
