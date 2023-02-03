@@ -36,8 +36,8 @@ func Run() {
 	}
 
 	storageService := services.NewStorageService(storage)
-	err = grpctr.NewGrpcTransport(grpctr.Config{Port: fl.GrpcPort(), StorageService: storageService}).Start()
-	if err != nil {
+	grpcConfig := grpctr.Config{Port: fl.GrpcPort(), StorageService: storageService}
+	if err = grpctr.NewGrpcTransport(grpcConfig).Start(); err != nil {
 		logrus.Fatalf("Failed start gRPC transport: %v", err)
 	}
 }
