@@ -2,6 +2,7 @@ package services
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/4ynyky/grpc_app/internal/domains"
 	"github.com/4ynyky/grpc_app/internal/storage"
@@ -38,6 +39,9 @@ func (ss *storageService) Get(id string) (domains.Item, error) {
 	} else if err != nil {
 		logrus.Errorf("Failed get item with id %v, error: %v", id, err)
 		return domains.Item{}, err
+	}
+	if len(item.ID) == 0 {
+		return domains.Item{}, fmt.Errorf("Got bad item")
 	}
 	return item, nil
 }
