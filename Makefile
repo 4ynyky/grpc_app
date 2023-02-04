@@ -12,7 +12,7 @@ tidy:
 	go mod tidy
 
 test:
-	go test -v ./...
+	go test ./...
 
 run:
 	go build -o ./bin/storage_app ./cmd/storage_service/main.go
