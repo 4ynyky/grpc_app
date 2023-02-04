@@ -10,6 +10,7 @@ func (mcd *memCacheDriver) Get(key string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("Get connection failed: %w", err)
 	}
+	defer mcd.connPool.PutConn(conn)
 	rw := bufio.NewReadWriter(bufio.NewReader(conn), bufio.NewWriter(conn))
 	if _, err = fmt.Fprintf(rw, "gets %s\r\n", key); err != nil {
 		return "", err
@@ -29,6 +30,7 @@ func (mcd *memCacheDriver) Set(item *Item) error {
 	if err != nil {
 		return fmt.Errorf("Get connection failed: %w", err)
 	}
+	defer mcd.connPool.PutConn(conn)
 	rw := bufio.NewReadWriter(bufio.NewReader(conn), bufio.NewWriter(conn))
 	err = writeItem(rw, "set", item)
 	if err != nil {
@@ -42,6 +44,7 @@ func (mcd *memCacheDriver) Delete(key string) error {
 	if err != nil {
 		return fmt.Errorf("Get connection failed: %w", err)
 	}
+	defer mcd.connPool.PutConn(conn)
 	rw := bufio.NewReadWriter(bufio.NewReader(conn), bufio.NewWriter(conn))
 	err = deleteItem(rw, key)
 	if err != nil {
