@@ -66,7 +66,7 @@ func scanLine(line []byte, it *Item) (size int, err error) {
 	return size, nil
 }
 
-func writeItem(rw *bufio.ReadWriter, verb string, item *Item) error {
+func writeItem(rw *bufio.ReadWriter, verb string, item Item) error {
 	if !checkKey(item.Key) {
 		return ErrMalformedKey
 	}

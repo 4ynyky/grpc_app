@@ -14,7 +14,7 @@ type Config struct {
 
 type memDriver interface {
 	Get(key string) (string, error)
-	Set(item *memdriver.Item) error
+	Set(item memdriver.Item) error
 	Delete(key string) error
 }
 
@@ -34,7 +34,7 @@ func NewMemcachedStorage(conf Config) (*memcachedStorage, error) {
 }
 
 func (ms *memcachedStorage) Set(item domains.Item) error {
-	if err := ms.md.Set(&memdriver.Item{Key: item.ID, Value: []byte(item.Value)}); err != nil {
+	if err := ms.md.Set(memdriver.Item{Key: item.ID, Value: []byte(item.Value)}); err != nil {
 		return fmt.Errorf("failed store item: %v, error: %w", item, err)
 	}
 	return nil

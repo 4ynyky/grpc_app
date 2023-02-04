@@ -25,7 +25,7 @@ func (mcd *memCacheDriver) Get(key string) (string, error) {
 	return string(item.Value), nil
 }
 
-func (mcd *memCacheDriver) Set(item *Item) error {
+func (mcd *memCacheDriver) Set(item Item) error {
 	conn, err := mcd.connPool.GetConn()
 	if err != nil {
 		return fmt.Errorf("Get connection failed: %w", err)
