@@ -18,8 +18,8 @@ type memCacheDriver struct {
 }
 
 func New(host string) (*memCacheDriver, error) {
-	defTimeout := 1 * time.Second
-	defMaxIdleConns := 4
+	defTimeout := 100 * time.Millisecond
+	defMaxIdleConns := 2
 	cPool, err := connectionpool.New(&netAddr{h: host}, defTimeout, defMaxIdleConns)
 	if err != nil {
 		return nil, fmt.Errorf("failed create connection pool: %w", err)
