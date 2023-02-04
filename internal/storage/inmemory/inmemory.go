@@ -17,6 +17,9 @@ func NewInMemoryStorage() *inmemoryStorage {
 }
 
 func (is *inmemoryStorage) Set(item domains.Item) error {
+	if len(item.ID) == 0 {
+		return storage.ErrItemInvalid
+	}
 	is.mu.Lock()
 	defer is.mu.Unlock()
 	is.data[item.ID] = item.Value
