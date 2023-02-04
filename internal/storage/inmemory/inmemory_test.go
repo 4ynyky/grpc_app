@@ -1,10 +1,11 @@
-package inmemory
+package inmemory_test
 
 import (
 	"strconv"
 	"testing"
 
 	"github.com/4ynyky/grpc_app/internal/domains"
+	"github.com/4ynyky/grpc_app/internal/storage/inmemory"
 )
 
 func TestSetInMemory(t *testing.T) {
@@ -27,7 +28,7 @@ func TestSetInMemory(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			st := NewInMemoryStorage()
+			st := inmemory.NewInMemoryStorage()
 			if err := st.Set(tt.args.(domains.Item)); (err != nil) != tt.wantErr {
 				t.Errorf("Set() error = %v, wantErr = %v", err, tt.wantErr)
 			}
@@ -36,7 +37,7 @@ func TestSetInMemory(t *testing.T) {
 }
 
 func BenchmarkSetInMemory(b *testing.B) {
-	st := NewInMemoryStorage()
+	st := inmemory.NewInMemoryStorage()
 	for i := 0; i < b.N; i++ {
 		if err := st.Set(domains.Item{ID: strconv.Itoa(i)}); err != nil {
 			b.Fatalf("Unexpected error: %v", err)
@@ -45,7 +46,7 @@ func BenchmarkSetInMemory(b *testing.B) {
 }
 
 func BenchmarkGetInMemory(b *testing.B) {
-	st := NewInMemoryStorage()
+	st := inmemory.NewInMemoryStorage()
 	for i := 0; i < b.N; i++ {
 		if err := st.Set(domains.Item{ID: strconv.Itoa(i)}); err != nil {
 			b.Fatalf("Unexpected error: %v", err)

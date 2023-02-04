@@ -7,5 +7,5 @@ var (
 
 	ErrNotFound = errors.New("not found")
 
-	ErrItemInvalid = errors.New("Item is invalid")
+	ErrItemInvalid = errors.New("item is invalid")
 )

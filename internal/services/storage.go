@@ -41,7 +41,7 @@ func (ss *storageService) Get(id string) (domains.Item, error) {
 		return domains.Item{}, err
 	}
 	if len(item.ID) == 0 {
-		return domains.Item{}, fmt.Errorf("Got bad item")
+		return domains.Item{}, fmt.Errorf("got bad item")
 	}
 	return item, nil
 }

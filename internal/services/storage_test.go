@@ -1,4 +1,4 @@
-package services
+package services_test
 
 import (
 	"fmt"
@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/4ynyky/grpc_app/internal/domains"
+	"github.com/4ynyky/grpc_app/internal/services"
 	mock_services "github.com/4ynyky/grpc_app/internal/services/mock"
 	"github.com/golang/mock/gomock"
 )
@@ -49,7 +50,7 @@ func TestSet(t *testing.T) {
 				tt.prepare(&f)
 			}
 
-			ss := NewStorageService(f.mockStorer)
+			ss := services.NewStorageService(f.mockStorer)
 
 			if err := ss.Set(tt.args); (err != nil) != tt.wantErr {
 				t.Errorf("Set() error = %v, wantErr %v", err, tt.wantErr)
@@ -109,7 +110,7 @@ func TestGet(t *testing.T) {
 				tt.prepare(&f)
 			}
 
-			ss := NewStorageService(f.mockStorer)
+			ss := services.NewStorageService(f.mockStorer)
 
 			item, err := ss.Get(tt.args)
 			if (err != nil) != tt.wantErr {
@@ -161,7 +162,7 @@ func TestDelete(t *testing.T) {
 				tt.prepare(&f)
 			}
 
-			ss := NewStorageService(f.mockStorer)
+			ss := services.NewStorageService(f.mockStorer)
 
 			if err := ss.Delete(tt.args); (err != nil) != tt.wantErr {
 				t.Errorf("Delete() error = %v, wantErr %v", err, tt.wantErr)
