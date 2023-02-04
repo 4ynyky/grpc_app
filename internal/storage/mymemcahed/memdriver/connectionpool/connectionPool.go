@@ -37,7 +37,6 @@ func (cp *ConnectionPool) GetConn() (net.Conn, error) {
 		if err != nil {
 			return nil, fmt.Errorf("failed open connection: %w", err)
 		}
-		cp.conns = append(cp.conns, conn)
 		return conn, nil
 	}
 
