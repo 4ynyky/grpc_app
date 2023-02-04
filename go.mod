@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/bradfitz/gomemcache v0.0.0-20230124162541-5f7a7d875746
+	github.com/golang/mock v1.6.0
 	github.com/sirupsen/logrus v1.9.0
 	google.golang.org/grpc v1.52.3
 	google.golang.org/protobuf v1.28.1
