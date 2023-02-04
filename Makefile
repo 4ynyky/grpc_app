@@ -1,8 +1,8 @@
 build:
-	golangci-lint run -c .golangci.reference.yml
 	go build -o ./bin/storage_app ./cmd/storage_service/main.go
+	golangci-lint run -c .golangci.reference.yml
 
-test:
+lint:
 	golangci-lint run -c .golangci.reference.yml
 
 gen:
@@ -11,9 +11,12 @@ gen:
 tidy:
 	go mod tidy
 
+test:
+	go test -v ./...
+
 run:
-	golangci-lint run -c .golangci.reference.yml
 	go build -o ./bin/storage_app ./cmd/storage_service/main.go
+	golangci-lint run -c .golangci.reference.yml
 	docker-compose -f docker/memcache/docker-compose.yml up -d
 	./bin/storage_app
 

@@ -34,12 +34,21 @@ func newStorage(fl *flags) services.Storer {
 	if fl.IsInternalStorage() {
 		logrus.Info("Init inmemory storage")
 		return inmemory.NewInMemoryStorage()
-	} else {
-		logrus.Info("Init memcached connection")
+	}
+
+	if fl.IsThirdPartyMemcache() {
+		logrus.Info("Init third-party memcached connection")
 		storage, err := memcached.NewMemcachedStorage(memcached.Config{Host: fl.MemcachedURL()})
 		if err != nil {
 			logrus.Fatalf("Failed connect to memcached: %v", err)
 		}
 		return storage
 	}
+
+	logrus.Info("Init my simple memcached connection")
+	storage, err := memcached.NewMemcachedStorage(memcached.Config{Host: fl.MemcachedURL()})
+	if err != nil {
+		logrus.Fatalf("Failed connect to memcached: %v", err)
+	}
+	return storage
 }

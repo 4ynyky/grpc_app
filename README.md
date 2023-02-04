@@ -8,7 +8,7 @@
 ## Build
 
 ```sh
-make       //run tests and build
+make       //run lint and build
 ```
 
 
